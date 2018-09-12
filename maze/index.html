@@ -416,8 +416,8 @@
 
     function getPlan(fieldSize){
         let stepsFromStart = [], stepsFromEnd = [],
-            directions = ['right', 'down', 'left', 'up'],
-            firstRowDirection = 0;
+            directions = ['right', 'down', 'left', 'up'];
+        const firstRowDirection = 0;
 
         stepsFromStart.push(...Array(fieldSize - 1).fill(directions[firstRowDirection]));
         for(let i = 1; i < fieldSize; i++){
