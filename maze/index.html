@@ -235,7 +235,7 @@
 </div>
 
 <script>
-    const defaultPiecePosition = 'top: 0; lefr: 0;';
+    const defaultPiecePosition = 'top: 0; left: 0;';
     const successResult = 'success!';
     const failResult = 'fail!';
     const successModifier = 'result--success';
@@ -285,7 +285,7 @@
 
                 case 'down':
                     nextIndex = currentIndex + 10;
-                    if (nextIndex > 100) {
+                    if (nextIndex > 400) {
                         nextIndex = -1;
                     }
                     break;
@@ -339,6 +339,7 @@
 
             switch (step.direction) {
                 case 'left':
+                    nextLeft -= 50;
                     break;
 
                 case 'down':
@@ -346,6 +347,7 @@
                     break;
 
                 case 'up':
+                    nextTop -= 50;
                     break;
 
                 case 'right':
@@ -412,22 +414,29 @@
         piece.go();
     }
 
+    function getPlan(fieldSize){
+        let stepsFromStart = [], stepsFromEnd = [],
+            directions = ['right', 'down', 'left', 'up'],
+            firstRowDirection = 0;
+
+        stepsFromStart.push(...Array(fieldSize - 1).fill(directions[firstRowDirection]));
+        for(let i = 1; i < fieldSize; i++){
+            let stepsAmount = fieldSize - i;
+            stepsFromStart.push( ...Array(stepsAmount).fill(directions[i % 4]) );
+            stepsFromEnd.push( ...Array(stepsAmount).fill(directions[i % 4]) );
+        }
+        stepsFromStart.push('left');
+
+        return stepsFromStart.concat(stepsFromEnd.reverse());
+    }
+
     function plan(piece) {
-        piece.addStep('left');
-        piece.addStep('up');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('right');
-        piece.addStep('down');
-        piece.addStep('down');
-        piece.addStep('down');
-        piece.addStep('down');
+        let fieldSize = Math.sqrt(cellsElements.length)
+
+        getPlan(fieldSize).map( (el) => {
+            piece.addStep(el);
+        })
+
     }
 
     function main() {
