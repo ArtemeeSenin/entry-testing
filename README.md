@@ -32,7 +32,7 @@ Fibonacci has called. Seems he can’t recall his numbers, except for the first 
 
 Could you create .js file, that Fibonacci can copypaste in his browser console and get any Nth number by inputing the N into it.
 
-In my solution the index of fibonacci number is passed from terminal arguments (let num = process.argv[2];)
+In my solution the index of fibonacci number is passed from terminal arguments (`let num = process.argv[2];`)
 
 For testing run  `node fibonacci-iterative.js 7` or `node fibonacci-recursive.js 5`
 
